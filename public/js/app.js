@@ -31,6 +31,11 @@ var requestId,
         V.audio.onPlay = draw;
     },
 
+    renderID3Tags = function (tags) {
+
+        V.views.metaData.render(tags, 'tags');
+    },
+
     initializeFileSystem = function () {
 
         V.fileSystem.init('dropZone');
@@ -44,12 +49,15 @@ var requestId,
             // get ready for the face visualization
             V.visualizers.face.drawBackground();
         };
+
+        V.fileSystem.onTagsFound = renderID3Tags;
     },
 
     clearVisualizations = function () {
         V.visualizers.face.clear();
         V.visualizers.summary.clear();
         V.visualizers.frequency.clear();
+        document.getElementById('tags').innerHTML = '';
     },
 
     bindControls = function () {

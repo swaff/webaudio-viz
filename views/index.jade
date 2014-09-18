@@ -14,6 +14,7 @@ html(lang="en")
         div.reflectBelow
             canvas#frequency(width='1000px' height='260px')
 
+        div#tags.tags
 
         div.face
             canvas#layer1.abs(width="400" height="400")
@@ -21,6 +22,7 @@ html(lang="en")
 
         canvas#summary.summary(width="700" height="70")
 
+        script(src='js/lib/id3.js')
         script(src='js/namespace.js')
         script(src='js/audio.js')
         script(src='js/fileSystem.js')
@@ -28,6 +30,7 @@ html(lang="en")
         script(src='js/visualizers/face.js')
         script(src='js/visualizers/summary.js')
         script(src='js/visualizers/frequency.js')
+        script(src='js/views/metaData.js')
         script(src='js/app.js')
 
 

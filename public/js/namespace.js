@@ -1,3 +1,4 @@
 var V = {
-    visualizers: {}
+    visualizers: {},
+    views: {}
 };

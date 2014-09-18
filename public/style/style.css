@@ -12,7 +12,7 @@ body {
     position: absolute;
     right: 0;
     width: 400px;
-    top: 100px;
+    top: 110px;
 }
 
 .abs {
@@ -46,4 +46,16 @@ body {
 
 .controls {
     margin: 10px;
+}
+
+.tags {
+    position: absolute;
+    right: 10px;
+    width: 300px;
+    top: 144px;
+}
+
+.metaKey {
+    display: inline-block;
+    width: 60px;
 }

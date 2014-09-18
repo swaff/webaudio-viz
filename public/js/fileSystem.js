@@ -7,12 +7,32 @@ V.fileSystem = (function () {
             evt.preventDefault();
         },
 
+
+        loadTagsFromFile = function (file) {
+            var url = file.urn ||file.name;
+
+            ID3.loadTags(
+                url,
+                function() {
+
+                    var tags = ID3.getAllTags(url);
+                    fileSystem.onTagsFound(tags);
+                },
+                {
+                    tags: ["artist", "title", "album"],
+                    dataReader: FileAPIReader(file)
+                }
+            );
+        },
+
         handleFileSelect = function (evt) {
 
             stopPropagation(evt);
 
             var reader = new FileReader(),
                 file = evt.dataTransfer.files[0];
+
+            loadTagsFromFile(file);
 
             reader.onload = fileSystem.onload;
             reader.readAsArrayBuffer(file);
@@ -35,5 +55,21 @@ V.fileSystem = (function () {
         window.console.log('override me');
     };
 
+    fileSystem.onTagsFound = function (tags) {
+        window.console.log('override me', tags);
+    }
+
     return fileSystem;
 }());
+
+
+
+
+
+
+
+
+
+
+
+
