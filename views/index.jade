@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+
+    head
+        link(rel="stylesheet" href='style/style.css')
+    body
+
+        div#dropZone.dropZone Drop a music file here
+
+        div.controls
+            button#stop Stop
+            input#volume(type='range' min='0' max='1' step='0.1')
+
+        div.reflectBelow
+            canvas#frequency(width='1000px' height='260px')
+
+
+        div.face
+            canvas#layer1.abs(width="400" height="400")
+            canvas#layer2.layer2.abs(width="400" height="400")
+
+        canvas#summary.summary(width="1000" height="70")
+
+        script(src='js/namespace.js')
+        script(src='js/audio.js')
+        script(src='js/fileSystem.js')
+        script(src='js/visualizers/face.js')
+        script(src='js/visualizers/summary.js')
+        script(src='js/visualizers/frequency.js')
+        script(src='js/app.js')
+
+
