@@ -23,7 +23,7 @@ V.visualizers.face = (function () {
         context.fillStyle = '#ff2e80';
         context.fill();
 
-        context.lineWidth = 5;
+        context.lineWidth = 8;
         context.strokeStyle = '#fff';
 
         // draw the eyes
@@ -68,7 +68,7 @@ V.visualizers.face = (function () {
         context.arc(x, y, radius, startAngle, leftEndAngle, false);
         context.moveTo(x, y + radius);
         context.arc(x, y, radius, startAngle, rightEndAngle, true);
-        context.lineWidth = 5;
+        context.lineWidth = 8;
         context.strokeStyle = '#fff';
         context.stroke();
 };
