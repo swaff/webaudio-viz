@@ -22,19 +22,6 @@ V.visualizers.summary = (function () {
         context.beginPath();
         context.lineWidth = 1;
 
-
-        console.log('summary', {
-            height: height,
-            ratio: ratio,
-            lineHeight: lineHeight,
-            centre: centre,
-            higher: centre - (lineHeight / 2),
-            lower: centre + (lineHeight / 2),
-            average: data.timeData.average,
-            max: data.timeData.max,
-            data: data
-        });
-
         // shift the y position up to create the reflection effect
         context.moveTo(summaryX, centre - (lineHeight / 2));
         context.lineTo(summaryX, centre + (lineHeight / 2));
@@ -46,8 +33,12 @@ V.visualizers.summary = (function () {
         // clear out the data if there is no space and start again
         if (summaryX > width) {
             summaryX = 0;
-            context.clearRect(0, 0, width, height);
+            summary.clear();
         }
+    };
+
+    summary.clear = function () {
+        V.visualizers.canvasHelper.clear(canvas);
     };
 
     return summary;

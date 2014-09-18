@@ -3,15 +3,12 @@ V.audio = (function () {
     var audio = {},
         audioContext,
         gainNode,
-        audioBuffer,
         analyser,
         source,
-        isPlaying = false,
 
         init = function () {
             audioContext = new window.webkitAudioContext();
         };
-
 
     audio.play = function (buffer) {
 
@@ -28,7 +25,6 @@ V.audio = (function () {
 
         source.start(0);
         source.onended = audio.onended;
-        isPlaying = true;
 
         audio.onPlay();
     };
@@ -38,11 +34,10 @@ V.audio = (function () {
             data.target.result,
             audio.play,
             function () {
-                console.error('nope');
+                window.console.error('nope');
             }
         );
-    }
-
+    };
 
     audio.stop = function () {
         source.stop();
@@ -52,8 +47,9 @@ V.audio = (function () {
         gainNode.gain.value = gain;
     };
 
-    audio.onPlay = function () {};
-    audio.onended = function () {};
+    audio.onPlay = audio.onended = function () {
+        window.console.log('override me');
+    };
 
     audio.analyse = function () {
 
@@ -63,7 +59,8 @@ V.audio = (function () {
             i = 0,
             total = 0,
             max = 0,
-            timeDataLength;
+            timeDataLength,
+            val;
 
         bufferLength = analyser.frequencyBinCount;
 
@@ -76,7 +73,7 @@ V.audio = (function () {
         timeDataLength = timeDataArray.length;
 
         while (i < timeDataLength) {
-            var val = timeDataArray[i];
+            val = timeDataArray[i];
             total += val;
 
             if (val > max) {

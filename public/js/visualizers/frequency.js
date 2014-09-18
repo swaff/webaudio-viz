@@ -7,10 +7,10 @@ V.visualizers.frequency = (function () {
 
             // colors taken from http://flatuicolors.com
             var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(1,'#34495e');
-            gradient.addColorStop(0.75,'#3498db');
-            gradient.addColorStop(0.25,'#2980b9');
-            gradient.addColorStop(0,'#e74c3c');
+            gradient.addColorStop(1, '#34495e');
+            gradient.addColorStop(0.75, '#3498db');
+            gradient.addColorStop(0.25, '#2980b9');
+            gradient.addColorStop(0, '#e74c3c');
             return gradient;
         };
 
@@ -27,20 +27,27 @@ V.visualizers.frequency = (function () {
 
             // the width of each bar is calculated from the number of points to plot
             barWidth = width / dataLength,
-            i,
-            total = 0;
+            i = 0,
+            x,
+            y,
+            barHeight;
 
-        context.clearRect(0, 0, width, height);
+        // clear out the canvas ready to redraw.
+        frequency.clear();
         context.fillStyle = getGradient(context);
 
-        for (i = 0; i < dataLength; i += 1) {
+        for (i; i < dataLength; i += 1) {
 
-            var x = (i * barWidth) + 10,
-                barHeight = frequencyData[i],
-                y = height - barHeight;
+            x = (i * barWidth) + 10;
+            barHeight = frequencyData[i];
+            y = height - barHeight;
 
             context.fillRect(x, y, barWidth, barHeight);
         }
+    };
+
+    frequency.clear = function () {
+        V.visualizers.canvasHelper.clear(canvas);
     };
 
     return frequency;

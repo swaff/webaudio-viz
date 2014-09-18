@@ -1,9 +1,8 @@
 V.fileSystem = (function () {
 
-    var fileSystem = {};
+    var fileSystem = {},
 
         stopPropagation = function (evt) {
-
             evt.stopPropagation();
             evt.preventDefault();
         },
@@ -16,7 +15,6 @@ V.fileSystem = (function () {
                 file = evt.dataTransfer.files[0];
 
             reader.onload = fileSystem.onload;
-
             reader.readAsArrayBuffer(file);
         },
 
@@ -25,7 +23,6 @@ V.fileSystem = (function () {
             evt.dataTransfer.dropEffect = 'copy';
         };
 
-
     fileSystem.init = function (dropZoneId) {
 
         var dropZone = document.getElementById(dropZoneId);
@@ -33,7 +30,10 @@ V.fileSystem = (function () {
         dropZone.addEventListener('drop', handleFileSelect, false);
     };
 
-    fileSystem.onload = function () {};
+    /* onload event ready for overriding */
+    fileSystem.onload = function () {
+        window.console.log('override me');
+    };
 
     return fileSystem;
 }());

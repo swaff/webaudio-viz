@@ -4,11 +4,11 @@ var requestId,
      * Gets the data from the audio module and requests a frame
      * to render it.
      */
-    draw = function draw () {
+    draw = function draw() {
 
         var data = V.audio.analyse();
 
-        requestId = requestAnimationFrame(function () {
+        requestId = window.requestAnimationFrame(function () {
 
             V.visualizers.frequency.draw(data.frequencyDataArray);
             V.visualizers.face.drawOverlay(data);
@@ -17,6 +17,9 @@ var requestId,
         });
     },
 
+    cancelAnimation = function () {
+        window.cancelAnimationFrame(requestId);
+    },
 
     initializeVisualizations = function () {
 
@@ -24,7 +27,7 @@ var requestId,
         V.visualizers.summary.init('summary');
         V.visualizers.frequency.init('frequency');
 
-        // when the audion plays then start drawing the visualizations
+        // when the audio plays then start drawing the visualizations
         V.audio.onPlay = draw;
     },
 
@@ -33,17 +36,26 @@ var requestId,
         V.fileSystem.init('dropZone');
         V.fileSystem.onload = function (data) {
 
+            initializeVisualizations();
+
             // there is data loaded from file, play it
             V.audio.load(data);
 
             // get ready for the face visualization
             V.visualizers.face.drawBackground();
-        } ;
+        };
+    },
+
+    clearVisualizations = function () {
+        V.visualizers.face.clear();
+        V.visualizers.summary.clear();
+        V.visualizers.frequency.clear();
     },
 
     bindControls = function () {
         document.getElementById('stop').addEventListener('click', function () {
-            cancelAnimationFrame(requestId);
+            cancelAnimation();
+            clearVisualizations();
             V.audio.stop();
         });
 
@@ -54,9 +66,6 @@ var requestId,
 
 
 bindControls();
-initializeVisualizations();
 initializeFileSystem();
 
-V.audio.onended = function () {
-    cancelAnimationFrame(requestId);
-};
+V.audio.onended = cancelAnimation;
